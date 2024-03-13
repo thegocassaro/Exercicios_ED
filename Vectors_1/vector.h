@@ -3,14 +3,14 @@
 
 #include <stdio.h>
 
+typedef int data_type;
+
 typedef struct
 {
     data_type *data;
     int size;
     int allocated;
 } Vector;
-
-typedef int data_type;
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
 Vector *vector_construct();
