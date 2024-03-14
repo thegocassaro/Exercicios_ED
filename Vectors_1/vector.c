@@ -26,7 +26,7 @@ void vector_push_back(Vector *v, data_type val){
     if(v->allocated == v->size){
 
         v->allocated *= 2;
-        v->data = (data_type*)realloc(v->allocated, sizeof(data_type));
+        v->data = (data_type*)realloc(v->data, sizeof(data_type) * v->allocated);
     }
 
     v->data[v->size] = val;
