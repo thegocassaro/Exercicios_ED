@@ -48,7 +48,7 @@ int main()
     }
 
     //12
-    printf("%d\n", vector_binary_search(v1, 17));
+    printf("%d\n", vector_binary_search(v1, 3));
 
     vector_destroy(v1);
     vector_destroy(v2);

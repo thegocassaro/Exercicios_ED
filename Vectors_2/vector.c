@@ -1,6 +1,7 @@
 #include "vector.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
 Vector *vector_construct(){
@@ -225,26 +226,40 @@ void vector_sort(Vector *v){
 int vector_binary_search(Vector *v, data_type val){
 
     int half = v->size;
-    int found = 0;
-    int first = 0, last = v->size;
+    int first = 0, last = (v->size - 1);
 
     //debug
     int stop=0;
 
     while(first < last){
 
+        half = half / 2;
+
         //debug
         stop++;
         if(stop > 20) break;
         printf("half: %d, first: %d, last: %d\n", half, first, last);
 
-        half = half / 2;
+        // if(v->data[(last - half)] == val){
+        //     found = 1;
+        //     break;
+        // }
 
-        if(v->data[(last - half)] == val){
-            found = 1;
-            break;
+        //acionado na ultima iteracao
+        if(half == 0){
+
+            if(v->data[first] == val){
+                return first;
+            }
+
+            else if(v->data[last] == val){
+                return last;
+            }
+
+            else return -1;
         }
 
+        //dividindo o vetor ao longo do loop
         if(v->data[(last - half)] > val){
             last -= half;
         }
@@ -255,18 +270,36 @@ int vector_binary_search(Vector *v, data_type val){
 
     }
 
-    if(found){
-        return first;
-    }
-
     return -1;
 }
 
 // Inverte o vetor in-place (sem criar um novo vetor)
-void vector_reverse(Vector *v);
+void vector_reverse(Vector *v){
+
+    for(int i=0; i<(v->size/2); i++){
+
+        vector_swap(v, i, (v->size - i));
+    }
+}
 
 // Cria uma cópia do vector e dos valores de seus atributos.
-Vector *vector_copy(Vector *v);
+Vector *vector_copy(Vector *v){
+
+    Vector* new_vector = (Vector*)calloc(1, sizeof(Vector));;
+
+    new_vector->allocated = v->allocated;
+    new_vector->size = v->size;
+    memcpy(new_vector->data, v->data, sizeof(data_type) * v->allocated);
+
+    return new_vector;
+}
 
 // Remove todos os elementos de v
-void vector_clear(Vector *v);
+void vector_clear(Vector *v){
+
+    free(v->data);
+
+    v->size = 0;
+    v->allocated = 10;
+    v->data = (data_type*)calloc(v->allocated, sizeof(data_type));
+}
