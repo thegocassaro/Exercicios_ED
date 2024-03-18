@@ -1,4 +1,5 @@
 #include "vector.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
