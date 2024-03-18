@@ -23,7 +23,7 @@ void vector_destroy(Vector *v){
 // Adiciona o item dado ao final do vector e aumenta o tamanho. Aumenta a capacidade alocada se necessário.
 void vector_push_back(Vector *v, data_type val){
 
-    if(v->allocated == v->size){
+    if(v->allocated <= v->size){
 
         v->allocated *= 2;
         v->data = (data_type*)realloc(v->data, sizeof(data_type) * v->allocated);
@@ -134,3 +134,80 @@ int vector_argmin(Vector *v){
 
     return index;
 }
+
+// Remove o i-ésimo elemento do vetor.
+data_type vector_remove(Vector *v, int i){
+
+    if(!(i >= 0 && i < v->size)){
+        printf("indice invalido\n");
+        exit(1);
+    }
+
+    data_type save_removed = v->data[i];
+
+    //loop rodando do indice dado até o fim do vetor - 1, considerando o indice a ser removido
+    for(i = i; i<(v->size - 1); i++){
+        v->data[i] = v->data[i + 1];
+    }
+
+    v->size -= 1;
+
+    return save_removed;
+}
+
+// Remove o primeiro elemento
+data_type vector_pop_front(Vector *v){
+
+    return vector_remove(v, 0);
+}
+
+// Remove o ultimo elemento
+data_type vector_pop_back(Vector *v){
+
+    return vector_remove(v, (v->size - 1));
+}
+
+// Insere o elemento na i-esima posicao
+void vector_insert(Vector *v, int i, data_type val){
+
+    //realoca o tam do vetor se necessario
+    if(v->allocated <= v->size){
+
+        v->allocated *= 2;
+        v->data = (data_type*)realloc(v->data, sizeof(data_type) * v->allocated);
+    }
+
+    //rearranja todos os valores a frente do prestes a ser inserido
+    for(i = i; i<v->size; i++){
+        v->data[i + 1] = v->data[i];
+    }
+
+    v->data[i] = val;
+    v->size++;
+}
+
+// Troca os elementos das posições i e j (i vira j e j vira i)
+void vector_swap(Vector *v, int i, int j){
+
+    data_type save_i = v->data[i];
+
+    v->data[i] = v->data[j];
+    v->data[j] = save_i;
+}
+
+// Ordena o vetor in-place (sem criar um novo vetor)
+void vector_sort(Vector *v){
+    
+}
+
+// Retorna o indice de val usando busca binaria. Retorna -1 se nao encontrado.
+int vector_binary_search(Vector *v, data_type val);
+
+// Inverte o vetor in-place (sem criar um novo vetor)
+void vector_reverse(Vector *v);
+
+// Cria uma cópia do vector e dos valores de seus atributos.
+Vector *vector_copy(Vector *v);
+
+// Remove todos os elementos de v
+void vector_clear(Vector *v);

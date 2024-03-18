@@ -24,10 +24,23 @@ int main()
     // printf("%d\n", vector_find(v1, 10));
 
     //7
-    printf("%d\n", (int)vector_max(v1));
-    printf("%d\n", (int)vector_min(v1));
-    printf("%d\n", (int)vector_argmax(v1));
-    printf("%d\n", (int)vector_argmin(v1));
+    // printf("%d\n", (int)vector_max(v1));
+    // printf("%d\n", (int)vector_min(v1));
+    // printf("%d\n", (int)vector_argmax(v1));
+    // printf("%d\n", (int)vector_argmin(v1));
+
+    //8
+    // printf("%d\n", (int)vector_remove(v1, 6));
+    // printf("%d\n", (int)vector_pop_back(v1));
+    // printf("%d\n", (int)vector_pop_front(v1));
+    // printf("%d\n", vector_size(v1));
+
+    //9
+    // vector_insert(v1, 5, 80);
+    // printf("%d\n", vector_size(v1));
+
+    //10
+    
 
     vector_destroy(v1);
     vector_destroy(v2);
