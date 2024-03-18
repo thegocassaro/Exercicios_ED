@@ -42,13 +42,13 @@ int main()
     //10
 
     //11
-    // vector_sort(v1);
-    // for(int i=0; i<10; i++){
-    //     printf("%d\n", (int)vector_get(v1, i));
-    // }
+    vector_sort(v1);
+    for(int i=0; i<10; i++){
+        printf("%d\n", (int)vector_get(v1, i));
+    }
 
     //12
-    
+    printf("%d\n", vector_binary_search(v1, 17));
 
     vector_destroy(v1);
     vector_destroy(v2);

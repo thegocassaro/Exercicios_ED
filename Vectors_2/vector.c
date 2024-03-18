@@ -222,7 +222,45 @@ void vector_sort(Vector *v){
 }
 
 // Retorna o indice de val usando busca binaria. Retorna -1 se nao encontrado.
-int vector_binary_search(Vector *v, data_type val);
+int vector_binary_search(Vector *v, data_type val){
+
+    int half = v->size;
+    int found = 0;
+    int first = 0, last = v->size;
+
+    //debug
+    int stop=0;
+
+    while(first < last){
+
+        //debug
+        stop++;
+        if(stop > 20) break;
+        printf("half: %d, first: %d, last: %d\n", half, first, last);
+
+        half = half / 2;
+
+        if(v->data[(last - half)] == val){
+            found = 1;
+            break;
+        }
+
+        if(v->data[(last - half)] > val){
+            last -= half;
+        }
+
+        else{
+            first += half;
+        }
+
+    }
+
+    if(found){
+        return first;
+    }
+
+    return -1;
+}
 
 // Inverte o vetor in-place (sem criar um novo vetor)
 void vector_reverse(Vector *v);
