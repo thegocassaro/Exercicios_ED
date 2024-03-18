@@ -11,7 +11,7 @@ int main()
     for(int i=0; i<10; i++)
         vector_push_back(v1, i);
 
-    vector_set(v1, 0, 10);
+    vector_set(v1, 0, 17);
     vector_set(v1, 6, -1024);
     vector_set(v2, 8, 34);
     
@@ -40,6 +40,14 @@ int main()
     // printf("%d\n", vector_size(v1));
 
     //10
+
+    //11
+    // vector_sort(v1);
+    // for(int i=0; i<10; i++){
+    //     printf("%d\n", (int)vector_get(v1, i));
+    // }
+
+    //12
     
 
     vector_destroy(v1);

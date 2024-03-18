@@ -197,7 +197,27 @@ void vector_swap(Vector *v, int i, int j){
 
 // Ordena o vetor in-place (sem criar um novo vetor)
 void vector_sort(Vector *v){
-    
+
+    int flag_swap = 0;
+
+    for(int j=0; j<v->size; j++){
+
+        flag_swap = 0;
+
+        //delimito o tamanho considerando que as comparacoes sao feitas com o indice atual e o da frente, logo nao 
+        //podendo passar de size - 1, alem do j, que impede uma rechecagem desnecessaria do ultimo indice de cada passagem
+        for(int i=0; i<(v->size - 1 - j); i++){
+
+            if(v->data[i] > v->data[i + 1]){
+                vector_swap(v, i, (i+1));
+                flag_swap = 1;
+            }
+        }
+
+        //sai do loop caso nao haja troca na passagem atual, indicando que o vetor esta ordenado
+        if(flag_swap == 0) break;
+
+    }
 }
 
 // Retorna o indice de val usando busca binaria. Retorna -1 se nao encontrado.
