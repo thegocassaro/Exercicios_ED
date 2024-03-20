@@ -240,11 +240,6 @@ int vector_binary_search(Vector *v, data_type val){
         if(stop > 20) break;
         printf("half: %d, first: %d, last: %d\n", half, first, last);
 
-        // if(v->data[(last - half)] == val){
-        //     found = 1;
-        //     break;
-        // }
-
         //acionado na ultima iteracao
         if(half == 0){
 
@@ -262,6 +257,11 @@ int vector_binary_search(Vector *v, data_type val){
         //dividindo o vetor ao longo do loop
         if(v->data[(last - half)] > val){
             last -= half;
+        }
+
+        //testando para o caso onde so esteja comparando dois elementos
+        else if(v->data[first] == val){
+            return first;
         }
 
         else{

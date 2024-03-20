@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Vectors_2/main",
+            "args": [
+                "<", "${workspaceFolder}/Vectors_2/entrada_11"
+            ],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "compilacao"
+        },
+    ]
+}
