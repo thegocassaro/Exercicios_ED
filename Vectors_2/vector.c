@@ -228,16 +228,11 @@ int vector_binary_search(Vector *v, data_type val){
     int half = v->size;
     int first = 0, last = (v->size - 1);
 
-    //debug
-    int stop=0;
-
     while(first < last){
 
         half = half / 2;
 
         //debug
-        stop++;
-        if(stop > 20) break;
         printf("half: %d, first: %d, last: %d\n", half, first, last);
 
         //acionado na ultima iteracao

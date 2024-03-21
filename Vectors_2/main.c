@@ -1,14 +1,3 @@
-
-    // //11
-    // vector_sort(v1);
-    // for(int i=0; i<10; i++){
-    //     printf("%d\n", (int)vector_get(v1, i));
-    // }
-
-    // //12
-    // printf("%d\n", vector_binary_search(v1, 3));
-
-
 #include <stdio.h>
 #include <string.h>
 
