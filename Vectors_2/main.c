@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 
@@ -5,25 +6,22 @@
 
 int main()
 {
-    int m, n, val;
+    int i, m, idx, val;
 
     Vector *v;
 
     v = vector_construct();
 
-    scanf("%d %d", &m, &n);
+    scanf("%d", &m);
 
-    for (int i = 0; i < m; i++)
+    for (i = 0; i < m; i++)
     {
-        scanf("%d", &val);
-        vector_push_back(v, val);
+        scanf("%d %d", &idx, &val);
+        vector_insert(v, idx, val);
     }
 
-    for (int i = 0; i < n; i++)
-    {
-        scanf("%d", &val);
-        printf("%d\n", vector_binary_search(v, val));
-    }
+    for (i = 0; i < vector_size(v); i++)
+        printf("%d\n", vector_get(v, i));
 
     vector_destroy(v);
 

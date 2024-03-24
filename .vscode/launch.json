@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/Vectors_2/main",
             "args": [
-                "<", "${workspaceFolder}/Vectors_2/entrada_11"
+                "<", "${workspaceFolder}/Vectors_2/entrada_8"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"
