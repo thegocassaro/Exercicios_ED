@@ -180,11 +180,13 @@ void vector_insert(Vector *v, int i, data_type val){
     }
 
     //rearranja todos os valores a frente do prestes a ser inserido
-    for(i = i; i<v->size; i++){
-        v->data[i + 1] = v->data[i];
+    int j=0;
+
+    for(j = (v->size - 1); j>=i; j--){
+        v->data[j + 1] = v->data[j];
     }
 
-    v->data[i] = val;
+    v->data[j+1] = val;
     v->size++;
 }
 
@@ -225,42 +227,25 @@ void vector_sort(Vector *v){
 // Retorna o indice de val usando busca binaria. Retorna -1 se nao encontrado.
 int vector_binary_search(Vector *v, data_type val){
 
-    int half = v->size;
+    int mid = 0;
     int first = 0, last = (v->size - 1);
 
-    while(first < last){
+    while(first <= last){
 
-        half = half / 2;
+        mid = first + (last - first) / 2;
 
-        //debug
-        printf("half: %d, first: %d, last: %d\n", half, first, last);
-
-        //acionado na ultima iteracao
-        if(half == 0){
-
-            if(v->data[first] == val){
-                return first;
-            }
-
-            else if(v->data[last] == val){
-                return last;
-            }
-
-            else return -1;
+        //dividindo os intervalos de busca do vetor ao longo do loop
+        if(v->data[mid] == val){
+            return mid;
         }
 
-        //dividindo o vetor ao longo do loop
-        if(v->data[(last - half)] > val){
-            last -= half;
-        }
-
-        //testando para o caso onde so esteja comparando dois elementos
-        else if(v->data[first] == val){
-            return first;
+        //testando se o valor procurado eh maior ou menor que mid e ajustando de acordo
+        else if(v->data[mid] > val){
+            last = mid - 1;
         }
 
         else{
-            first += half;
+            first = mid + 1;
         }
 
     }
@@ -273,7 +258,7 @@ void vector_reverse(Vector *v){
 
     for(int i=0; i<(v->size/2); i++){
 
-        vector_swap(v, i, (v->size - i));
+        vector_swap(v, i, (v->size - i - 1));
     }
 }
 
