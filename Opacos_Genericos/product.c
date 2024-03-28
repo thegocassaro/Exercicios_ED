@@ -7,12 +7,12 @@ struct product{
 
     char name[MAX_NAME_LENGTH];
     float price; //preco (float positivo),
-    int discount; //desconto (float entre 0 e 1),
+    float discount; //desconto (float entre 0 e 1),
     int qtd; //quantidade em estoque (inteiro não negativo)
     int sales; //numero de vendas (inteiro não negativo).
 };
 
-Product* product_constructor(char* name, float price, int qtd){
+Product* product_constructor(const char* name, float price, int qtd){
 
     if(price <= 0 || qtd < 0){
         printf("VALOR INVALIDO\n");
@@ -70,18 +70,48 @@ void product_set_discount(Product *product, float discount){
 
 void product_sell(Product *product, int quantity){
 
-    if(quantity < 0){
+    if(quantity <= 0){
         printf("QUANTIDADE INVALIDA\n");
+        return;
     }
 
     if(quantity > product->qtd){
         printf("ESTOQUE INSUFICIENTE\n");
+        return;
     }
+
+    product->qtd -= quantity;
+    product->sales += quantity;
 }
 
-void product_buy(Product *product, int quantity);
+void product_buy(Product *product, int quantity){
 
-float product_get_price_with_discount(Product *product);
-void product_print(Product *product);
+    if(quantity <= 0){
+        printf("QUANTIDADE INVALIDA\n");
+        return;
+    }
 
-void product_destructor(Product *product);
+    product->qtd += quantity;
+}
+
+float product_get_price_with_discount(Product *product){
+
+    return (product->price - product->discount);
+}
+
+void product_print(Product *product){
+
+    printf("Product(");
+    printf("%s, ", product->name);
+    printf("%.2f, ", product->price);
+    printf("%.2f, ", product->discount);
+    printf("%.2f, ", product_get_price_with_discount(product));
+    printf("%d, ", product->qtd);
+    printf("%d)\n", product->sales);
+}
+
+void product_destructor(Product *product){
+
+    free(product);
+    product = NULL;
+}
