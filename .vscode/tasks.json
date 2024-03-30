@@ -4,7 +4,7 @@
         {
             "label": "compilacao",
             "type": "shell",
-            "command": "make -C Vectors_2",
+            "command": "make -C Opacos_Genericos",
         }
     ]
 }

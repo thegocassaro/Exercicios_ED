@@ -5,7 +5,7 @@
 
 typedef struct product Product;
 
-Product *product_constructor(const char *name, float price, int qtd);
+Product *product_constructor(const char *name, float price, int qtd, int sales);
 
 const char *product_get_name(Product *product);
 float product_get_price(Product *product);
@@ -24,5 +24,9 @@ float product_get_price_with_discount(Product *product);
 void product_print(Product *product);
 
 void product_destructor(Product *product);
+
+int product_compare_name(const void* product_1, const void* product_2);
+int product_compare_price(const void* product_1, const void* product_2);
+int product_compare_sales(const void* product_1, const void* product_2);
 
 #endif

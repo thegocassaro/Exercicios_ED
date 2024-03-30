@@ -8,50 +8,36 @@ Product *create_product()
 {
     char name[128];
     float price;
-    int qtd;
+    int qtd, sales;
 
-    scanf("%[^\n]\n", name);
-    scanf("%f", &price);
-    scanf("%d", &qtd);
+    scanf(" %[^\n]", name);
+    scanf(" %f", &price);
+    scanf(" %d", &qtd);
+    scanf(" %d", &sales);
 
-    return product_constructor(name, price, qtd);
+    return product_constructor(name, price, qtd, sales);
 }
 
-void perform_operation(Product *product)
-{
-    char name[128];
-    float price, discount;
-    int qtd;
-    char operation;
+int(*compare_functions)(const void* product_1, const void* product_2);
 
+void perform_operation(Product **product_vector, int n_products)
+{
+    char operation;
     scanf("\n%c", &operation);
 
-    if (operation == 'P')
-        product_print(product);
+    if (operation == 'N'){
+        compare_functions = product_compare_name;
+        qsort(product_vector, n_products, sizeof(Product*), compare_functions);
+    }
+    else if (operation == 'P')
+    {
+        compare_functions = product_compare_price;
+        qsort(product_vector, n_products, sizeof(Product*), compare_functions);
+    }
     else if (operation == 'S')
     {
-        scanf("\n%d", &qtd);
-        product_sell(product, qtd);
-    }
-    else if (operation == 'B')
-    {
-        scanf("\n%d", &qtd);
-        product_buy(product, qtd);
-    }
-    else if (operation == 'D')
-    {
-        scanf("\n%f", &discount);
-        product_set_discount(product, discount);
-    }
-    else if (operation == 'Q')
-    {
-        scanf("\n%f", &price);
-        product_set_price(product, price);
-    }
-    else if (operation == 'N')
-    {
-        scanf("\n%[^\n]\n", name);
-        product_set_name(product, name);
+        compare_functions = product_compare_sales;
+        qsort(product_vector, n_products, sizeof(Product*), compare_functions);
     }
     else
         printf("Operacao invalida.\n");
@@ -59,15 +45,23 @@ void perform_operation(Product *product)
 
 int main()
 {
-    Product *product = create_product();
 
-    int n_operations;
-    scanf("%d", &n_operations);
+    int n_products = 0;
+    scanf("%d", &n_products);
+    Product** product_vector = (Product**)malloc(sizeof(Product*) * n_products);
 
-    for (int i = 0; i < n_operations; ++i)
-        perform_operation(product);
+    for (int i = 0; i < n_products; ++i)
+        product_vector[i] = create_product();
 
-    product_destructor(product);
+    perform_operation(product_vector, n_products);
+
+    for (int i = 0; i < n_products; ++i)
+        product_print(product_vector[i]);
+
+    for (int i = 0; i < n_products; ++i)
+        product_destructor(product_vector[i]);
+
+    free(product_vector);
 
     return 0;
 }

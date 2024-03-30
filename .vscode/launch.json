@@ -4,9 +4,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Vectors_2/main",
+            "program": "${workspaceFolder}/Opacos_Genericos/main",
             "args": [
-                "<", "${workspaceFolder}/Vectors_2/entrada_8"
+                // "<", "${workspaceFolder}/Opacos_Genericos/entrada"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"

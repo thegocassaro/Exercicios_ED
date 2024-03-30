@@ -5,4 +5,4 @@ clean:
 	rm -f main
 
 val:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main < entrada_11 > saida
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main < entrada > saida
