@@ -3,17 +3,12 @@
 
 #include <stdio.h>
 
-typedef int data_type;
+typedef void* data_type;
 
-typedef struct
-{
-    data_type *data;
-    int size;
-    int allocated;
-} Vector;
+typedef struct Vector Vector;
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
-Vector *vector_construct();
+Vector *vector_construct(fp_destructor free_data);
 
 // Libera o espaço reservado para o vector.
 void vector_destroy(Vector *v);

@@ -2,14 +2,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "product.h"
+
+struct Vector
+{
+    data_type *data;
+    int size;
+    int allocated;
+    fp_destructor free_data;
+};
+
+typedef void(*fp_destructor)(data_type);
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
-Vector *vector_construct(){
+Vector *vector_construct(fp_destructor free_data){
 
     Vector* v = (Vector*)calloc(1, sizeof(Vector));
 
     v->allocated = 10;
     v->data = (data_type*)calloc(v->allocated, sizeof(data_type));
+    v->free_data = free_data;
 
     return v;
 }
@@ -17,7 +29,9 @@ Vector *vector_construct(){
 // Libera o espaço reservado para o vector.
 void vector_destroy(Vector *v){
 
-    free(v->data);
+    for(int i=0; i<v->size; i++){
+        v->free_data(v->data[i]);
+    }
     free(v);
     v = NULL;
 }
@@ -76,7 +90,8 @@ int vector_find(Vector *v, data_type val){
 // Retorna o maior elemento do vector (assumindo que podemos comparar elementos usando o operador "<")
 data_type vector_max(Vector *v){
 
-    data_type the_big = v->data[0], index = 0;
+    data_type the_big = v->data[0];
+    int index = 0;
 
     for(int i=0; i<v->size; i++){
 
@@ -92,7 +107,8 @@ data_type vector_max(Vector *v){
 // Retorna o menor elemento do vector (assumindo que podemos comparar elementos usando o operador "<")
 data_type vector_min(Vector *v){
 
-    data_type the_small = v->data[0], index = 0;
+    data_type the_small = v->data[0];
+    int index = 0;
 
     for(int i=0; i<v->size; i++){
 
@@ -108,7 +124,8 @@ data_type vector_min(Vector *v){
 // Retorna o índice do maior elemento do vector (assumindo que podemos comparar elementos usando o operador "<")
 int vector_argmax(Vector *v){
 
-    data_type the_big = v->data[0], index = 0;
+    data_type the_big = v->data[0];
+    int index = 0;
 
     for(int i=0; i<v->size; i++){
 
@@ -124,7 +141,8 @@ int vector_argmax(Vector *v){
 // Retorna o índice do menor elemento do vector (assumindo que podemos comparar elementos usando o operador "<")
 int vector_argmin(Vector *v){
 
-    data_type the_small = v->data[0], index = 0;
+    data_type the_small = v->data[0];
+    int index = 0;
 
     for(int i=0; i<v->size; i++){
 

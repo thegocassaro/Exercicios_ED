@@ -23,7 +23,7 @@ Product* product_constructor(const char* name, float price, int qtd, int sales){
 
     strcpy(p->name, name);
     p->price = price;
-    p->qtd = qtd;
+    p->qtd = qtd - sales;
     p->sales = sales;
 
     return p;
