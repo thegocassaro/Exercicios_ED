@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 typedef void* data_type;
+typedef void(*fp_destructor)(data_type);
 
 typedef struct Vector Vector;
 

@@ -1,68 +1,49 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "product.h"
 #include "vector.h"
 
-Product *create_product()
-{
-    char name[128];
-    float price;
-    int qtd, sales;
-
-    scanf(" %[^\n]", name);
-    scanf(" %f", &price);
-    scanf(" %d", &qtd);
-    scanf(" %d", &sales);
-
-    return product_constructor(name, price, qtd, sales);
-}
-
-// int(*compare_functions)(const void* product_1, const void* product_2);
-
-void perform_operation(Product **product_vector, int n_products)
-{
-    char operation;
-    scanf("\n%c", &operation);
-
-    if (operation == 'N'){
-        qsort(product_vector, n_products, sizeof(Product*), product_compare_name);
-    }
-    else if (operation == 'P')
-    {
-        qsort(product_vector, n_products, sizeof(Product*), product_compare_price);
-    }
-    else if (operation == 'S')
-    {
-        qsort(product_vector, n_products, sizeof(Product*), product_compare_sales);
-    }
-    else
-        printf("Operacao invalida.\n");
-}
-
 int main()
 {
+    char sort_option;
+    char name[MAX_NAME_LENGTH];
+    float price;
+    int n, qtd, sales;
 
-    int n_products = 0;
-    scanf("%d", &n_products);
+    scanf("%d", &n);
 
-    Vector* product_vector = vector_construct(product_destructor);
+    Vector *products = vector_construct();
 
-    for (int i = 0; i < n_products; ++i){
+    for (int i = 0; i < n; ++i)
+    {
+        scanf("\n%[^\n]\n", name);
+        scanf("%f", &price);
+        scanf("%d", &qtd);
+        scanf("%d", &sales);
 
-        Product* new_product = create_product();
-        vector_push_back(product_vector, new_product);
+        Product *product = product_constructor(name, price, qtd);
+        // product_print(product);
+        product_sell(product, sales);
+        vector_push_back(products, product);
     }
 
-    perform_operation(product_vector, n_products);
+    scanf("\n%c", &sort_option);
 
-    for (int i = 0; i < n_products; ++i){
+    if (sort_option == 'N')
+        vector_sort(products, product_compare_name);
+    else if (sort_option == 'P')
+        vector_sort(products, product_compare_price);
+    else if (sort_option == 'S')
+        vector_sort(products, product_compare_sales);
 
-        product_print(product_vector[i]);
-    }
+    for (int i = 0; i < n; ++i)
+        product_print(vector_get(products, i));
 
-    vector_destroy(product_vector);
+    for (int i = 0; i < n; ++i)
+        product_destructor(vector_get(products, i));
+
+    vector_destroy(products);
 
     return 0;
 }

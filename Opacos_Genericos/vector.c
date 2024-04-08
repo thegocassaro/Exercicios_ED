@@ -12,8 +12,6 @@ struct Vector
     fp_destructor free_data;
 };
 
-typedef void(*fp_destructor)(data_type);
-
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
 Vector *vector_construct(fp_destructor free_data){
 
@@ -32,6 +30,7 @@ void vector_destroy(Vector *v){
     for(int i=0; i<v->size; i++){
         v->free_data(v->data[i]);
     }
+    free(v->data);
     free(v);
     v = NULL;
 }

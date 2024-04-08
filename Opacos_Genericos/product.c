@@ -126,24 +126,26 @@ void product_print(Product *product){
     printf("%d)\n", product->sales);
 }
 
-void product_destructor(Product *product){
+void product_destructor(void* product){
 
-    free(product);
-    product = NULL;
+    Product* p = (Product*)product;
+
+    free(p);
+    p = NULL;
 }
 
 int product_compare_name(const void* product_1, const void* product_2){
 
-    Product *p1 = *((Product **)product_1);
-    Product *p2 = *((Product **)product_2);
+    Product *p1 = (Product *)product_1;
+    Product *p2 = (Product *)product_2;
 
     return strcmp(p1->name, p2->name);
 }
 
 int product_compare_price(const void* product_1, const void* product_2){
 
-    Product *p1 = *((Product **)product_1);
-    Product *p2 = *((Product **)product_2);
+    Product *p1 = (Product *)product_1;
+    Product *p2 = (Product *)product_2;
 
     if(p1->price < p2->price) return -1;
     else if(p1->price > p2->price) return 1;
@@ -152,8 +154,8 @@ int product_compare_price(const void* product_1, const void* product_2){
 
 int product_compare_sales(const void* product_1, const void* product_2){
 
-    Product *p1 = *((Product **)product_1);
-    Product *p2 = *((Product **)product_2);
+    Product *p1 = (Product *)product_1;
+    Product *p2 = (Product *)product_2;
 
     if(p1->sales < p2->sales) return -1;
     else if(p1->sales > p2->sales) return 1;

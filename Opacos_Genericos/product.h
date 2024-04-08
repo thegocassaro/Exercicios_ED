@@ -23,7 +23,7 @@ void product_buy(Product *product, int quantity);
 float product_get_price_with_discount(Product *product);
 void product_print(Product *product);
 
-void product_destructor(Product *product);
+void product_destructor(void *product);
 
 int product_compare_name(const void* product_1, const void* product_2);
 int product_compare_price(const void* product_1, const void* product_2);
