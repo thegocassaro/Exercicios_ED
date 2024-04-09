@@ -22,7 +22,7 @@ int main()
         scanf("%d", &qtd);
         scanf("%d", &sales);
 
-        Product *product = product_constructor(name, price, qtd);
+        Product *product = product_constructor(name, price, qtd, sales);
         // product_print(product);
         product_sell(product, sales);
         vector_push_back(products, product);

@@ -9,17 +9,15 @@ struct Vector
     data_type *data;
     int size;
     int allocated;
-    fp_destructor free_data;
 };
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
-Vector *vector_construct(fp_destructor free_data){
+Vector *vector_construct(){
 
     Vector* v = (Vector*)calloc(1, sizeof(Vector));
 
     v->allocated = 10;
     v->data = (data_type*)calloc(v->allocated, sizeof(data_type));
-    v->free_data = free_data;
 
     return v;
 }
@@ -27,9 +25,6 @@ Vector *vector_construct(fp_destructor free_data){
 // Libera o espaço reservado para o vector.
 void vector_destroy(Vector *v){
 
-    for(int i=0; i<v->size; i++){
-        v->free_data(v->data[i]);
-    }
     free(v->data);
     free(v);
     v = NULL;
@@ -217,7 +212,7 @@ void vector_swap(Vector *v, int i, int j){
 }
 
 // Ordena o vetor in-place (sem criar um novo vetor)
-void vector_sort(Vector *v){
+void vector_sort(Vector *v, int(*fp_compare)(const void* product_1, const void* product_2)){
 
     int flag_swap = 0;
 
@@ -229,10 +224,11 @@ void vector_sort(Vector *v){
         //podendo passar de size - 1, alem do j, que impede uma rechecagem desnecessaria do ultimo indice de cada passagem
         for(int i=0; i<(v->size - 1 - j); i++){
 
-            if(v->data[i] > v->data[i + 1]){
+            if(fp_compare(v->data[i], v->data[i + 1]) == 1){
                 vector_swap(v, i, (i+1));
                 flag_swap = 1;
             }
+
         }
 
         //sai do loop caso nao haja troca na passagem atual, indicando que o vetor esta ordenado

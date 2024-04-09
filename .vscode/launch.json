@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/Opacos_Genericos/main",
             "args": [
-                // "<", "${workspaceFolder}/Opacos_Genericos/entrada"
+                "<", "${workspaceFolder}/Opacos_Genericos/entrada"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"

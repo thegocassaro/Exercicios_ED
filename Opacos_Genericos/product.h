@@ -4,6 +4,7 @@
 #define MAX_NAME_LENGTH 64
 
 typedef struct product Product;
+typedef int(*fp_compare)(const void* product_1, const void* product_2);
 
 Product *product_constructor(const char *name, float price, int qtd, int sales);
 
@@ -23,7 +24,7 @@ void product_buy(Product *product, int quantity);
 float product_get_price_with_discount(Product *product);
 void product_print(Product *product);
 
-void product_destructor(void *product);
+void product_destructor(Product *product);
 
 int product_compare_name(const void* product_1, const void* product_2);
 int product_compare_price(const void* product_1, const void* product_2);

@@ -4,12 +4,11 @@
 #include <stdio.h>
 
 typedef void* data_type;
-typedef void(*fp_destructor)(data_type);
 
 typedef struct Vector Vector;
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.
-Vector *vector_construct(fp_destructor free_data);
+Vector *vector_construct();
 
 // Libera o espaço reservado para o vector.
 void vector_destroy(Vector *v);
@@ -59,7 +58,7 @@ void vector_insert(Vector *v, int i, data_type val);
 void vector_swap(Vector *v, int i, int j);
 
 // Ordena o vetor in-place (sem criar um novo vetor)
-void vector_sort(Vector *v);
+void vector_sort(Vector *v, int(*fp_compare)(const void* product_1, const void* product_2));
 
 // Retorna o indice de val usando busca binaria. Retorna -1 se nao encontrado.
 int vector_binary_search(Vector *v, data_type val);

@@ -23,8 +23,7 @@ Product* product_constructor(const char* name, float price, int qtd, int sales){
 
     strcpy(p->name, name);
     p->price = price;
-    p->qtd = qtd - sales;
-    p->sales = sales;
+    p->qtd = qtd;
 
     return p;
 }
@@ -126,12 +125,10 @@ void product_print(Product *product){
     printf("%d)\n", product->sales);
 }
 
-void product_destructor(void* product){
+void product_destructor(Product* product){
 
-    Product* p = (Product*)product;
-
-    free(p);
-    p = NULL;
+    free(product);
+    product = NULL;
 }
 
 int product_compare_name(const void* product_1, const void* product_2){
