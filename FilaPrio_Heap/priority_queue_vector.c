@@ -2,12 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
+#include "processos.h"
 
 struct PriorityQueue{
 
-    void** data_vector;
-    int size;
-    int allocated;
+    Vector* data_vector;
     fp_compare cmp_fn;
 };
 
@@ -15,8 +14,9 @@ PriorityQueue *pq_constructor(int cmp_fn(const void *, const void *)){
 
     PriorityQueue* pq = (PriorityQueue*)calloc(1, sizeof(PriorityQueue));
 
-    pq->allocated = 10;
-    pq->data_vector = (void**)calloc(pq->allocated, sizeof(void*));
+    //tive que quebrar o fator generico aqui, o certo seria passar process_destroy como argumento de pq_constructor
+    //porem sou limitado pelo .h dado pelo professor, ou seja, nao posso mudar as funcoes
+    pq->data_vector = vector_construct(process_destroy);
     pq->cmp_fn = cmp_fn;
 
     return pq;
@@ -24,51 +24,31 @@ PriorityQueue *pq_constructor(int cmp_fn(const void *, const void *)){
 
 void pq_push(PriorityQueue *pq, void *data){
 
-    if(pq->size == pq->allocated){
-        pq->allocated *= 2;
-        pq->data_vector = (void**)realloc(pq->allocated, sizeof(void*));
-    }
-
     //adiciona novo elemento
-    pq->data_vector[pq->size] = data;
-
-    //reordena vetor de dados até que o novo elemento esteja na ordem de prioridade certa
-    for(int i=pq->size - 1; i>=0; i--){
-
-        //caso o novo elemento seja de menor prio que seu vizinho anterior, troca
-        //desse modo, o ele de maior prio ficará sempre no ultimo indice, facilitando na hora do pop
-        if(pq->cmp_fn(data, pq->data_vector[pq->size - 1]) == -1){
-
-            void* aux = pq->data_vector[pq->size - 1];
-            pq->data_vector[pq->size - 1] = data;
-            pq->data_vector[pq->size] = aux;
-        }
-    }
-
-    pq->size++;
+    vector_push_back(pq->data_vector, data);
 }
 
 void *pq_pop(PriorityQueue *pq){
 
-    if(pq->size <= 0){
+    if(vector_size(pq->data_vector) <= 0){
 
         printf("Nao ha elementos na fila.\n");
         exit(1);
     }
 
-    pq->size--;
-
-    return pq->data_vector[pq->size];
+    //reordena vetor de dados até que o elemento de maior prio esteja no ultimo indice, facilitando na hora do pop
+    vector_sort_ascending(pq->data_vector, cmp_prio);
+    return vector_remove(pq->data_vector, vector_size(pq->data_vector) - 1);    
 }
 
 int pq_size(PriorityQueue *pq){
 
-    return pq->size;
+    return vector_size(pq->data_vector);
 }
 
 void pq_destroy(PriorityQueue *pq){
 
-    free(pq->data_vector);
+    vector_destroy(pq->data_vector);
     free(pq);
     pq = NULL;
 }

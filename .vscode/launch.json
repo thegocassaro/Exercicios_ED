@@ -4,9 +4,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Opacos_Genericos/main",
+            "program": "${workspaceFolder}/FilaPrio_Heap/main",
             "args": [
-                "<", "${workspaceFolder}/Opacos_Genericos/entrada"
+                "<", "${workspaceFolder}/FilaPrio_Heap/input1"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"
