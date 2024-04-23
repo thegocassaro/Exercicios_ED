@@ -1,6 +1,14 @@
-5
-PUSH agua
-POP
-PUSH bola
-PUSH casa
-POP
+13
+ENQUEUE gallinacean
+DEQUEUE
+ENQUEUE sodalites
+ENQUEUE dornicks
+DEQUEUE
+ENQUEUE fascinatedly
+DEQUEUE
+ENQUEUE rapacki
+ENQUEUE incameration
+ENQUEUE punily
+DEQUEUE
+ENQUEUE gin-sling
+ENQUEUE close-fertilization

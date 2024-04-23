@@ -26,14 +26,14 @@ int main()
 
         scanf(" %s", command);
 
-        if(!strcmp(command, "PUSH")){
+        if(!strcmp(command, "ENQUEUE")){
             scanf(" %s", word);
             char* data = strdup(word);
             vector_push_back(v, data);
         }
 
-        if(!strcmp(command, "POP")){
-            char* removed = (char*)vector_pop_back(v);
+        if(!strcmp(command, "DEQUEUE")){
+            char* removed = (char*)vector_pop_front(v);
             printf("%s\n", removed);
             free(removed);
         }
