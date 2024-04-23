@@ -2,81 +2,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "heap.h"
+#include "vector.h"
 
-typedef struct
-{
-    char nome[32];
-    char cat[32];
-    int id;
-    int prioridade;
-} Proc;
+void destroy_string(void* str){
 
-Proc *proc_constructor(char *nome, char *cat, int id, int prioridade)
-{
-    Proc *proc = (Proc *)malloc(sizeof(Proc));
-
-    strcpy(proc->nome, nome);
-    strcpy(proc->cat, cat);
-    proc->id = id;
-    proc->prioridade = prioridade;
-
-    return proc;
-}
-
-void proc_destructor(void *proc)
-{
-    free(proc);
-}
-
-int proc_cmp(const void *a, const void *b)
-{
-    Proc *proc_a = (Proc *)a;
-    Proc *proc_b = (Proc *)b;
-
-    if (proc_a->prioridade < proc_b->prioridade)
-        return -1;
-
-    if (proc_a->prioridade > proc_b->prioridade)
-        return 1;
-
-    return 0;
+    char* s = (char*)str;
+    free(s);
+    s = NULL;
 }
 
 int main()
 {
     int n;
 
-    Heap *heap = heap_constructor(proc_cmp);
+    Vector* v = vector_construct(destroy_string);    
 
     scanf("%d", &n);
 
     for (int i = 0; i < n; i++)
     {
-        char nome[32];
-        char cat[32];
-        int id;
-        int prioridade;
+        char command[10];
+        char word[50];
 
-        scanf(" %s %s %d %d", nome, cat, &id, &prioridade);
+        scanf(" %s %s", command, word);
 
-        heap_push(heap, proc_constructor(nome, cat, id, prioridade));
+        char* data = strdup(word);
+
+        if(!strcmp(command, "PUSH")){
+            vector_insert(v, 0, data);
+        }
+
+        else if(!strcmp(command, "POP")){
+            char* oi = (char*)vector_remove(v, vector_size(v) - 1);
+            printf();
+        }
     }
 
-    while (heap_size(heap) > 0)
-    {
-        Proc *proc = (Proc *)heap_pop(heap);
-
-        printf("%s %s %d %d\n",
-               proc->nome,
-               proc->cat,
-               proc->id,
-               proc->prioridade);
-
-        proc_destructor(proc);
-    }
-
-    heap_destroy(heap);
+    vector_destroy(v);
 
     return 0;
 }

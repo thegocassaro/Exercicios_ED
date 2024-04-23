@@ -1,8 +1,13 @@
-7
-Processo1 Sistema 1234 5
-Processo2 Aplicativo 5678 8
-Processo3 Sistema 9012 3
-Processo4 Aplicativo 3456 7
-Processo5 Sistema 7890 9
-Processo6 Serviço 2345 6
-Processo7 Sistema 6789 4
+12
+PUSH amusette
+PUSH tercel
+PUSH rose-tinted
+PUSH tallish
+PUSH nasicorn
+PUSH inartistic
+POP
+PUSH coal
+POP
+POP
+POP
+POP

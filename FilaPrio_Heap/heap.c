@@ -90,11 +90,8 @@ void *heap_pop(Heap *heap){
 
     heap->size--;
 
-    for(int i=0; i<=((heap->size / 2) - 1); i++)
+    for(int i=((heap->size / 2) - 1); i>=0; i--)
         heapify(heap, i);
-
-    // for(int i=((heap->size / 2) - 1); i>=0; i--)
-    //     heapify(heap, i);
 
     return removed;
 }
