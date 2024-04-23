@@ -6,7 +6,7 @@
 typedef void* data_type;
 
 typedef struct Vector Vector;
-typedef int(*fp_compare)(const void* product_1, const void* product_2);
+typedef int(*fp_compare)(const void* a, const void* b);
 typedef void(*fp_destroy)(void*);
 
 // Aloca espaço para um elemento do tipo vector e inicializa os seus atributos.

@@ -10,13 +10,11 @@ struct PriorityQueue{
     fp_compare cmp_fn;
 };
 
-PriorityQueue *pq_constructor(int cmp_fn(const void *, const void *)){
+PriorityQueue *pq_constructor(fp_compare cmp_fn, fp_destroy destroy_fn){
 
     PriorityQueue* pq = (PriorityQueue*)calloc(1, sizeof(PriorityQueue));
 
-    //tive que quebrar o fator generico aqui, o certo seria passar process_destroy como argumento de pq_constructor
-    //porem sou limitado pelo .h dado pelo professor, ou seja, nao posso mudar as funcoes
-    pq->data_vector = vector_construct(process_destroy);
+    pq->data_vector = vector_construct(destroy_fn);
     pq->cmp_fn = cmp_fn;
 
     return pq;

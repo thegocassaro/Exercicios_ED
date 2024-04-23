@@ -3,6 +3,10 @@
         "vector.h": "c",
         "product.h": "c",
         "stdio.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "prio_queue_heap.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }

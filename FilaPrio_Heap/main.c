@@ -1,32 +1,82 @@
+
 #include <stdio.h>
-#include "priority_queue_vector.h"
-#include "vector.h"
-#include "processos.h"
+#include <stdlib.h>
+#include <string.h>
+#include "heap.h"
 
-int main(){
+typedef struct
+{
+    char nome[32];
+    char cat[32];
+    int id;
+    int prioridade;
+} Proc;
 
-    int n=0;
-    char nome[32], categoria[32]; 
-    int identificador, prioridade;
+Proc *proc_constructor(char *nome, char *cat, int id, int prioridade)
+{
+    Proc *proc = (Proc *)malloc(sizeof(Proc));
 
-    PriorityQueue* pq = pq_constructor(cmp_prio);
+    strcpy(proc->nome, nome);
+    strcpy(proc->cat, cat);
+    proc->id = id;
+    proc->prioridade = prioridade;
 
-    scanf(" %d", &n);
+    return proc;
+}
 
-    for(int i=0; i<n; i++){
+void proc_destructor(void *proc)
+{
+    free(proc);
+}
 
-        scanf(" %s %s %d %d", nome, categoria, &identificador, &prioridade);
-        pq_push(pq, process_construct(nome, categoria, identificador, prioridade));
+int proc_cmp(const void *a, const void *b)
+{
+    Proc *proc_a = (Proc *)a;
+    Proc *proc_b = (Proc *)b;
+
+    if (proc_a->prioridade < proc_b->prioridade)
+        return -1;
+
+    if (proc_a->prioridade > proc_b->prioridade)
+        return 1;
+
+    return 0;
+}
+
+int main()
+{
+    int n;
+
+    Heap *heap = heap_constructor(proc_cmp);
+
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++)
+    {
+        char nome[32];
+        char cat[32];
+        int id;
+        int prioridade;
+
+        scanf(" %s %s %d %d", nome, cat, &id, &prioridade);
+
+        heap_push(heap, proc_constructor(nome, cat, id, prioridade));
     }
 
-    for(int i=0; i<n; i++){
+    while (heap_size(heap) > 0)
+    {
+        Proc *proc = (Proc *)heap_pop(heap);
 
-        void* removed_item = pq_pop(pq);
-        process_print(removed_item);
-        process_destroy(removed_item);
+        printf("%s %s %d %d\n",
+               proc->nome,
+               proc->cat,
+               proc->id,
+               proc->prioridade);
+
+        proc_destructor(proc);
     }
 
-    pq_destroy(pq);
+    heap_destroy(heap);
 
     return 0;
 }
