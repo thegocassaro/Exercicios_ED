@@ -24,17 +24,18 @@ int main()
         char command[10];
         char word[50];
 
-        scanf(" %s %s", command, word);
-
-        char* data = strdup(word);
+        scanf(" %s", command);
 
         if(!strcmp(command, "PUSH")){
-            vector_insert(v, 0, data);
+            scanf(" %s", word);
+            char* data = strdup(word);
+            vector_push_back(v, data);
         }
 
-        else if(!strcmp(command, "POP")){
-            char* oi = (char*)vector_remove(v, vector_size(v) - 1);
-            printf();
+        if(!strcmp(command, "POP")){
+            char* removed = (char*)vector_pop_back(v);
+            printf("%s\n", removed);
+            free(removed);
         }
     }
 

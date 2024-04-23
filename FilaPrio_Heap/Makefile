@@ -5,4 +5,4 @@ clean:
 	rm -f main
 
 val:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main < input1 > out
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./main < input1 > out
