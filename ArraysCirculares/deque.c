@@ -32,14 +32,30 @@ void deque_push_back(Deque *f, int item){
 
 void deque_push_front(Deque *f, int item){
 
+    f->arr[(f->start - 1) % f->capacity] = item;
+    f->start = (f->start - 1) % f->capacity;
+    f->size++;
+
+    if(f->size == f->capacity)
+        increase_capacity(f);
 }
 
 int deque_pop_back(Deque *f){
 
+    int removed = f->arr[(f->end - 1) % f->capacity];
+    f->size--;
+    f->end = (f->end - 1) % f->capacity;
+
+    return removed;
 }
 
 int deque_pop_front(Deque *f){
 
+    int removed = f->arr[f->start];
+    f->size--;
+    f->start = (f->start + 1) % f->capacity;
+
+    return removed;
 }
 
 void deque_destroy(Deque *f){
