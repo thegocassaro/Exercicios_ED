@@ -4,9 +4,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/FilaPrio_Heap/main",
+            "program": "${workspaceFolder}/ArraysCirculares/main",
             "args": [
-                "<", "${workspaceFolder}/FilaPrio_Heap/input1"
+                "<", "${workspaceFolder}/ArraysCirculares/input"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"
