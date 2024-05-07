@@ -62,7 +62,41 @@ void city_read_all(Vector* cities, int m){
     }
 }
 
-void do_the_hopping(Path* path, int search_type){
+int city_get_n_neighbors(City* city){
+    
+    return city->n_neighbors;
+}
+
+Path* path_construct(int n_neighbors){
+
+    Path* path = (Path*)calloc(1, sizeof(Path));
+
+    path->f_amount = 1;
+    path->v_amount = 0;
+
+    //inicializando com um valor qualquer
+    path->frontier = vector_construct(city_destroy, 10);
+    path->visited = vector_construct(city_destroy, 10);
+
+    return path;
+}
+
+void path_destroy(void* stuff){
+
+    Path* path = (Path*)stuff;
+
+    vector_destroy(path->frontier);
+    vector_destroy(path->visited);
+
+    free(path);
+}
+
+Path* do_the_hopping(Vector* cities, int search_type){
+
+    Path* path = path_construct(city_get_n_neighbors(vector_get(cities, 0)));
+
+    //adicionando a cidade de origem nas fronteiras
+    vector_push_back(path->frontier, vector_get(cities, 0));
 
     while(path->f_amount > 0){
 
