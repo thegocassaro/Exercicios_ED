@@ -7,6 +7,8 @@
         "prio_queue_heap.h": "c",
         "array": "c",
         "string": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "city_hopping.h": "c",
+        "search_alg.h": "c"
     }
 }

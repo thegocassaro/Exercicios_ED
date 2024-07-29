@@ -1,5 +1,7 @@
-#include "city_hopping.h"
-#include "search_alg.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "city.h"
+#include "path.h"
 #include "vector.h"
 
 int main(){
