@@ -38,6 +38,18 @@ void city_destroy(void* stuff){
     free(city);
 }
 
+int city_get_n_neighbors(City* city){
+    return city->n_neighbors;
+}
+
+int city_get_idx_neighbors(City* city, int idx){
+    return vector_get(city->idx_neighbors, idx);
+}
+
+int city_get_dist_neighbors(City* city, int idx){
+    return vector_get(city->dist_neighbors, idx);
+}
+
 void city_read_all(Vector* cities, int m){
 
     for(int i=0; i<m; i++){
@@ -60,11 +72,6 @@ void city_read_all(Vector* cities, int m){
             vector_push_back(new_city->dist_neighbors, dist_aux);
         }
     }
-}
-
-int city_get_n_neighbors(City* city){
-    
-    return city->n_neighbors;
 }
 
 Path* path_construct(int n_neighbors){
@@ -90,6 +97,43 @@ void path_destroy(void* stuff){
 
     free(path);
 }
+
+int get_path_info(Path* path, int sel, int idx){
+
+    switch(sel){
+        case F_AMOUNT:
+            return path->f_amount;
+            break;
+        case V_AMOUNT:
+            return path->v_amount;
+            break;
+        case FRONTIER:
+            return vector_get(path->frontier, idx);
+            break;
+        case VISITED:
+            return vector_get(path->visited, idx);
+            break;
+        default:
+            break;    
+    }
+}
+
+void set_path_f_amount(Path* path, int val){
+    path->f_amount = val;
+}
+
+void set_path_v_amount(Path* path, int val){
+    path->v_amount = val;
+}
+
+void set_path_frontier(Path* path, int val, int idx){
+    vector_set(path->frontier, idx, val);
+}
+
+void set_path_visited(Path* path, int val, int idx){
+    vector_set(path->visited, idx, val);
+}
+
 
 Path* do_the_hopping(Vector* cities, int search_type){
 
