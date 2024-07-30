@@ -9,7 +9,7 @@ typedef struct{
     int id;
     float timestamp;
 
-}Video;
+}Frame;
 
 int main(){
 
@@ -17,7 +17,7 @@ int main(){
     int id;
     float timestamp;
 
-    Video fila[MAX_FILA];
+    Frame buffer[MAX_FILA];
     int inicio = 0, fim = 0, tamanho = 0;
 
     int n = 0 ;
@@ -32,8 +32,8 @@ int main(){
             if(tamanho < MAX_FILA){
 
                 //insercao fim do array circ
-                fila[fim].id = id;
-                fila[fim].timestamp = timestamp;
+                buffer[fim].id = id;
+                buffer[fim].timestamp = timestamp;
 
                 fim = (fim + 1) % MAX_FILA;
                 tamanho++;
@@ -44,23 +44,22 @@ int main(){
 
         else if(!strcmp(comando, "PLAY")){
 
-            if(tamanho > 5){
+            if(tamanho >= 5){
 
                 //remocao comeco do array circ
-                
-                for(int j=0; j<tamanho; j++){
+                for(int j=0; j<5; j++){
 
-                    printf("ID: %d, Timestamp: %.2f\n", fila[inicio].id, fila[inicio].timestamp);
+                    printf("ID: %d, Timestamp: %.2f\n", buffer[inicio].id, buffer[inicio].timestamp);
                     inicio = (inicio + 1) % MAX_FILA;
+
                 }
 
-                    tamanho = 0;
+                tamanho -= 5;
             }
 
             else printf("AGUARDE\n");
         }
     }
-
 
     return 0;
 }
