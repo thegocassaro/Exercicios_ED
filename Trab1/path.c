@@ -19,7 +19,7 @@ int choose_search_type(char* algorithm){
     return -1;
 }
 
-void DFS_fn(){
+void DFS_fn(Vector* frontiers, Vector* visited, int* n_frontiers, int* n_visited){
 
     /*
     pegando a ultima cidade da fronteira, passando ela como visitada (se ja nao foi previamente),
@@ -27,7 +27,7 @@ void DFS_fn(){
     */
 
     
-
+   *n_frontiers += 
 
 }
 
@@ -47,19 +47,21 @@ void A_STAR_fn(){
 
 Path* do_the_hopping(Vector* cities, int search_type, int n_cities){
 
-    Vector* path = vector_construct(free, n_cities);
+    Vector* path = vector_construct(free, INIT_VALUE);
 
-    // Vector* frontiers = vector_construct(free, INIT_VALUE);
+    Vector* frontiers = vector_construct(free, INIT_VALUE);
+    Vector* visited = vector_construct(free, INIT_VALUE);
+    int n_frontiers = 1, n_visited = 0;
     
     //adicionando a cidade de origem nas fronteiras
-    vector_push_back(frontier, vector_get(cities, 0)); //criar e inic vetor fronteira e visitados fora das fn de busca/ passar vetores como parametro
+    vector_push_back(frontiers, vector_get(cities, 0)); //criar e inic vetor fronteira e visitados fora das fn de busca/ passar vetores como parametro
 
-    while(path->f_amount > 0){
+    while(n_frontiers > 0){
 
         switch(search_type){
 
             case DFS:
-
+                DFS_fn(frontiers, visited, &n_frontiers, &n_visited);
                 break;
 
             case BFS:
@@ -74,7 +76,7 @@ Path* do_the_hopping(Vector* cities, int search_type, int n_cities){
 
                 break;
 
-            deafult:
+            default:
                 printf("Invalid search algorithm. Terminate program.\n\n");
                 return;
         }
