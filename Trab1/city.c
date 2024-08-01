@@ -8,6 +8,9 @@ struct city{
     int n_neighbors;
     Vector* idx_neighbors;
     Vector* dist_neighbors;
+
+    int n_parents;
+    Vector* idx_parents;
 };
 
 City* city_construct(){
@@ -44,11 +47,19 @@ int city_get_n_neighbors(City* city){
 }
 
 int city_get_idx_neighbors(City* city, int idx){
-    return vector_get(city->idx_neighbors, idx);
+    return *(int*)vector_get(city->idx_neighbors, idx);
 }
 
-int city_get_dist_neighbors(City* city, int idx){
-    return vector_get(city->dist_neighbors, idx);
+float city_get_dist_neighbors(City* city, int idx){
+    return *(float*)vector_get(city->dist_neighbors, idx);
+}
+
+int city_get_n_parents(City* city){
+    return city->n_parents;
+}
+
+int city_get_idx_neighbors(City* city, int idx){
+    return *(int*)vector_get(city->idx_parents, idx);
 }
 
 void city_read_all(Vector* cities, int m){
@@ -73,5 +84,12 @@ void city_read_all(Vector* cities, int m){
             vector_push_back(new_city->idx_neighbors, idx_aux);
             vector_push_back(new_city->dist_neighbors, dist_aux);
         }
+
+        vector_push_back(cities, new_city);
     }
+}
+
+void city_find_parents(Vector* cities){
+
+    //pra cada cidade, deve haver pelo menos um pai (um ou mais caminhos pra se chegar a ela)
 }
