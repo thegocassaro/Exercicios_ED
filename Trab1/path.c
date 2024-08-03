@@ -48,15 +48,38 @@ int DFS_fn(Vector* cities, Vector* frontiers, Vector* visited){
 }
 
 //FIFO
-void BFS_fn(){
+int BFS_fn(Vector* cities, Vector* frontiers, Vector* visited){
+
+    //pegando a primeira cidade da fronteira, passando ela como visitada e adicionando os
+    //vizinhos dessa cidade como fronteira para serem avaliadas nas proximas iteracoes
+    City* visited_city = vector_remove(frontiers, vector_get(frontiers, 0));
+
+    //ignorando processo caso a cidade ja tenha sido visitada
+    for(int i=0; i<vector_size(visited); i++){
+
+        if(!strcmp(city_get_name(visited_city), city_get_name(vector_get(visited, i))))
+            return 0;
+    }
+
+    vector_push_back(visited, visited_city);
+
+    //verificando se chegamos na cidade alvo
+    if(!strcmp(city_get_name(visited_city), city_get_name(vector_get(cities, vector_size(cities)))))
+        return 1;
+
+    for(int i=0; i<city_get_n_neighbors(visited_city); i++){
+
+        vector_push_back(frontiers, vector_get(cities, city_get_idx_neighbors(visited_city, i)));
+    }
+
+    return 0;
+}
+
+int UCS_fn(){
 
 }
 
-void UCS_fn(){
-
-}
-
-void A_STAR_fn(){
+int A_STAR_fn(){
 
 }
 
