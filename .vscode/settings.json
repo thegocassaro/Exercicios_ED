@@ -9,6 +9,7 @@
         "string": "c",
         "string_view": "c",
         "city_hopping.h": "c",
-        "search_alg.h": "c"
+        "search_alg.h": "c",
+        "random": "c"
     }
 }
