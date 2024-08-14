@@ -84,4 +84,6 @@ void forward_list_destroy(ForwardList *l){
         node_destroy(n);
         n = next;
     }
+
+    free(l);
 }
