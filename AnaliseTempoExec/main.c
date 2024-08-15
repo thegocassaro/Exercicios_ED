@@ -44,7 +44,7 @@ int main(){
                 // tempo passado entre os dois pontos do código
                 double dt = (end - start);
 
-                printf("%d %f %f %f", )
+                printf("%d %f %f %f", );
             }
 
         }

@@ -81,6 +81,13 @@ data_type forward_list_pop_front(ForwardList *l){
 
 void forward_list_clear(ForwardList *l){
     
+    Node* n = l->head;
+
+    while(n != NULL){
+
+        forward_list_pop_front(l);
+        n = node_next(n);
+    }
 }
 
 void forward_list_remove(ForwardList *l, data_type val){
@@ -94,21 +101,16 @@ void forward_list_remove(ForwardList *l, data_type val){
 
             //caso em que head deve ser removida
             if(prev == NULL){
-
                 l->head = node_next(n);
-                Node* aux = n;
-                n = node_next(n);
-                node_destroy(aux);
             }
 
             else{
-
                 prev->next = n->next;
-                Node* aux = n;
-                n = node_next(n);
-                node_destroy(aux);
             }
 
+            Node* aux = n;
+            n = node_next(n);
+            node_destroy(aux);
             l->size--;
             continue;
         }
@@ -125,6 +127,20 @@ void forward_list_unique(ForwardList *l){
 
 void forward_list_cat(ForwardList *l, ForwardList *m){
     
+    Node* n1 = l->head;
+    Node* n2 = m->head;
+
+    while(node_next(n1) != NULL){
+        n1 = node_next(n1);
+    }
+
+    for(int i=0; i<forward_list_size(m); i++){
+        n1->next = n2;
+        n1 = node_next(n1);
+        n2 = node_next(n2);
+    }
+
+    l->size += m->size;
 }
 
 void forward_list_sort(ForwardList *l){
