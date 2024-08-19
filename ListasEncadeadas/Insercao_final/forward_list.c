@@ -24,6 +24,18 @@ void forward_list_push_front(ForwardList *l, data_type data){
     l->size++;
 }
 
+void forward_list_push_back(ForwardList *l, data_type data){
+
+    Node* node = node_construct(data, NULL);
+    Node* n = l->head;
+    
+    for(int i=1; i<forward_list_size(l); i++){
+        n = node_next(n);
+    }
+
+    l->size++;
+}
+
 void forward_list_print(ForwardList *l, void (*print_fn)(data_type)){
 
     Node* n = l->head;
@@ -75,9 +87,17 @@ data_type forward_list_pop_front(ForwardList *l){
     return aux_value;
 }
 
-// ForwardList *forward_list_reverse(ForwardList *l){
+ForwardList *forward_list_reverse(ForwardList *l){
     
-// }
+    ForwardList* reversed_l = forward_list_construct();
+
+    for(int i=0; i<forward_list_size(l); i++){
+
+        forward_list_push_front(reversed_l, forward_list_get(l, i));
+    }
+
+    return reversed_l;
+}
 
 void forward_list_clear(ForwardList *l){
     

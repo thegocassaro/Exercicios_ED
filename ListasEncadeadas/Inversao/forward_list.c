@@ -75,9 +75,17 @@ data_type forward_list_pop_front(ForwardList *l){
     return aux_value;
 }
 
-// ForwardList *forward_list_reverse(ForwardList *l){
+ForwardList *forward_list_reverse(ForwardList *l){
     
-// }
+    ForwardList* reversed_l = forward_list_construct();
+
+    for(int i=0; i<forward_list_size(l); i++){
+
+        forward_list_push_front(reversed_l, forward_list_get(l, i));
+    }
+
+    return reversed_l;
+}
 
 void forward_list_clear(ForwardList *l){
     
