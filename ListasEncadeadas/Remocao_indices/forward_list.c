@@ -206,3 +206,27 @@ bool list_iterator_is_over(ListIterator *it){
     
     return (it->current == NULL);
 }
+
+data_type forward_list_pop_index(ForwardList *l, int index){
+
+    if(i<0 && i>=l->size){
+        printf("mensagem de erro informativa");
+        exit(0);
+    }
+
+    Node *n = l->head;
+
+    for(int i=0; i<index; i++){
+        n = node_next(n);
+    }
+
+    n->prev
+
+    Node* aux = n;
+    data_type aux_data = node_value(n);
+    n = node_next(n);
+    node_destroy(aux);
+    l->size--;
+
+    return aux_data;
+}

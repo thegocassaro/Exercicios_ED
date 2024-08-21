@@ -1,0 +1,6 @@
+5
+PUSH_FRONT agua
+PUSH_FRONT bola
+POP 0
+POP 0
+PUSH_FRONT casa
