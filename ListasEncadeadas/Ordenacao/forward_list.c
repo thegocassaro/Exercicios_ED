@@ -87,7 +87,7 @@ data_type forward_list_pop_front(ForwardList *l){
     }
 
     Node* aux = l->head;
-    char* aux_value = (char*)aux->value;
+    data_type aux_value = aux->value;
 
     l->head = aux->next;
     node_destroy(aux);
@@ -165,7 +165,23 @@ void forward_list_cat(ForwardList *l, ForwardList *m){
 }
 
 void forward_list_sort(ForwardList *l){
+
+    for(int i=l->size - 1; i>=0; i--){
     
+    Node* n = l->head;
+
+        for(int j=0; j<i; j++){
+
+            if(n->value> n->next->value){
+
+                data_type aux = n->value;
+                n->value = n->next->value;
+                n->next->value = aux;
+            }
+
+            n = n->next;
+        }
+    }
 }
 
 void forward_list_destroy(ForwardList *l){
@@ -182,37 +198,38 @@ void forward_list_destroy(ForwardList *l){
     free(l);
 }
 
-// ListIterator *list_iterator_construct(ForwardList *l){
+ListIterator *list_iterator_construct(ForwardList *l){
     
-//     ListIterator *it = (ListIterator *)calloc(1, sizeof(ListIterator));
-//     it->current = l->head;
+    ListIterator *it = (ListIterator *)calloc(1, sizeof(ListIterator));
+    it->current = l->head;
 
-//     return it;
-// }
+    return it;
+}
 
-// void list_iterator_destroy(ListIterator *it){
+void list_iterator_destroy(ListIterator *it){
     
-//     free(it);
-// }
+    free(it);
+}
 
-// data_type* list_iterator_next(ListIterator *it){
+data_type* list_iterator_next(ListIterator *it){
     
-//     data_type *n = &(it->current->value);
-//     it->current = it->current->next;
+    data_type *n = &(it->current->value);
+    it->current = it->current->next;
 
-//     return n;
-// }
+    return n;
+}
 
-// bool list_iterator_is_over(ListIterator *it){
+bool list_iterator_is_over(ListIterator *it){
     
-//     return (it->current == NULL);
-// }
+    return (it->current == NULL);
+}
 
 data_type forward_list_pop_index(ForwardList *l, int index){
 
     if(index<0 || index>=l->size){
         printf("INVALID INDEX\n");
-        return NULL;
+        // return NULL;
+        return -1;
     }
 
     Node *n = l->head;

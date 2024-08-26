@@ -1,7 +1,13 @@
+#include "forward_list.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 void print_data(data_type data)
 {
     // implemente a funcao para mostrar um elemento da lista na tela.
-    printf("%s", data);
+    char* aux = (char*)data;
+    printf("%s", aux);
 }
 
 int main()
@@ -34,13 +40,18 @@ int main()
             void *val = forward_list_pop_index(list, idx);
 
             // PARA FAZER: libere o elemento retornado pelo pop
-
+            if(val != NULL) free(val);
         }
     }
 
     forward_list_print(list, print_data);
 
     // PARA FAZER: a lista ainda pode ter elementos aqui. Libere-os.
+    Node* n = list->head;
+    while(n != NULL){
+        free(n->value);
+        n = n->next;
+    }    
 
     forward_list_destroy(list);
 
