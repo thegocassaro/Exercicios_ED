@@ -10,6 +10,11 @@
         "string_view": "c",
         "city_hopping.h": "c",
         "search_alg.h": "c",
-        "random": "c"
+        "random": "c",
+        "system_error": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }
