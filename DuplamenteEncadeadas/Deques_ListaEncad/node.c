@@ -15,6 +15,7 @@ Node *node_construct(data_type value, Node *prev, Node *next)
 void node_destroy(Node *n)
 {
     free(n);
+    n = NULL;
 }
 
 void node_print_debug(Node *n, void (*print_fn)(data_type))

@@ -116,8 +116,8 @@ data_type list_pop_front(List *l){
     int aux_value = aux->value;
 
     l->head = aux->next;
-    l->head->prev = NULL;
     node_destroy(aux);
+    l->head->prev = NULL;
 
     l->size--;
     if(l->size <= 1) l->last = l->head;
@@ -127,7 +127,7 @@ data_type list_pop_front(List *l){
 
 data_type list_pop_back(List *l){
 
-    if(l->head == NULL){
+    if(l->last == NULL){
         printf("uma mensagem de erro\n");
         exit(0);
     }
@@ -136,11 +136,11 @@ data_type list_pop_back(List *l){
     int aux_value = aux->value;
 
     l->last = aux->prev;
-    l->last->next = NULL;
     node_destroy(aux);
+    l->last->next = NULL; //n sei pq ja nao tava deixando next como NULL se na node_destroy aux = NULL;
 
     l->size--;
-    if(l->size <= 1) l->last = l->head;
+    if(l->size <= 1) l->head = l->last;
 
     return aux_value;
 }
@@ -235,7 +235,7 @@ void list_destroy(List *l){
     
     Node* n = l->head;
 
-    while(n != NULL){
+    for(int i=0; i<l->size; i++){
         
         Node* next = n->next;
         node_destroy(n);
