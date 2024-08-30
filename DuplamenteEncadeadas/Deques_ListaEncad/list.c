@@ -117,7 +117,7 @@ data_type list_pop_front(List *l){
 
     l->head = aux->next;
     node_destroy(aux);
-    l->head->prev = NULL;
+    if(l->head != NULL) l->head->prev = NULL;
 
     l->size--;
     if(l->size <= 1) l->last = l->head;
@@ -137,7 +137,7 @@ data_type list_pop_back(List *l){
 
     l->last = aux->prev;
     node_destroy(aux);
-    l->last->next = NULL; //n sei pq ja nao tava deixando next como NULL se na node_destroy aux = NULL;
+    if(l->last != NULL) l->last->next = NULL; //n sei pq ja nao tava deixando next como NULL se na node_destroy aux = NULL;
 
     l->size--;
     if(l->size <= 1) l->head = l->last;
