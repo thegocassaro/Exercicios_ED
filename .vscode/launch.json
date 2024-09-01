@@ -4,9 +4,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ArraysCirculares/main",
+            "program": "${workspaceFolder}/DuplamenteEncadeadas/Deques_ListaEncad/main",
             "args": [
-                "<", "${workspaceFolder}/ArraysCirculares/input"
+                "<", "${workspaceFolder}/DuplamenteEncadeadas/Deques_ListaEncad/input"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"
