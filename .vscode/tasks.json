@@ -4,7 +4,7 @@
         {
             "label": "compilacao",
             "type": "shell",
-            "command": "make -C DuplamenteEncadeadas/Deques_ListaEncad",
+            "command": "make -C Hash/Set_Get",
         }
     ]
 }

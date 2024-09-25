@@ -4,9 +4,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/DuplamenteEncadeadas/Deques_ListaEncad/main",
+            "program": "${workspaceFolder}/Hash/Set_Get/main",
             "args": [
-                "<", "${workspaceFolder}/DuplamenteEncadeadas/Deques_ListaEncad/input"
+                "<", "${workspaceFolder}/Hash/Set_Get/input"
             ],
             "cwd": "${fileDirname}",
             "preLaunchTask": "compilacao"
