@@ -10,7 +10,7 @@ struct HashTable{
     HashFunction hash_fn;
     CmpFunction cmp_fn;
 
-    HashTableItem* item_list;
+    HashTableItem** item_list;
 };
 
 // struct HashTableIterator{
