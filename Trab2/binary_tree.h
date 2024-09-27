@@ -53,7 +53,7 @@ void *binary_tree_get(BinaryTree *bt, void *key);
 void binary_tree_destroy(BinaryTree *bt);
 
 // a funcao abaixo pode ser util para debug, mas nao eh obrigatoria.
-void binary_tree_print(BinaryTree *bt);
+void binary_tree_print(Node* root);
 
 // Vector *binary_tree_inorder_traversal(BinaryTree *bt);
 // Vector *binary_tree_preorder_traversal(BinaryTree *bt);

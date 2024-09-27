@@ -47,6 +47,9 @@ int main()
     binary_tree_add(bt, strdup("g"), strdup("7"));
     binary_tree_add(bt, strdup("h"), strdup("8"));
 
+    binary_tree_print(bt->root);
+
+
     binary_tree_remove(bt, "e");
     binary_tree_remove(bt, "c");
     binary_tree_remove(bt, "a");

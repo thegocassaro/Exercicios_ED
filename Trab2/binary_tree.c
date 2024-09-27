@@ -33,6 +33,7 @@ Node *bt_node_construct(void *key, void *value, Node *left, Node *right){
 
 void bt_node_destroy(Node *node){
     
+    printf("destroying node\nkey: %s\nvalue: %s\n", (char*)node->key, (char*)node->value);
     free(node->key);
     free(node->value);
     free(node);
@@ -69,7 +70,7 @@ void binary_tree_add(BinaryTree *bt, void *key, void *value){
 
             parent = current;
 
-            if(bt->cmp_fn(key, current->key) < 0){
+            if(bt->cmp_fn(key, current->key) > 0){
                 current = current->right;
 
                 if(current == NULL){
@@ -126,7 +127,7 @@ void binary_tree_remove(BinaryTree *bt, void *key){
 
         parent = current;
 
-        if(bt->cmp_fn(key, current->key) < 0){
+        if(bt->cmp_fn(key, current->key) > 0){
             current = current->right;
             bigger_or_smaller = 1;
         }
@@ -268,6 +269,19 @@ KeyValPair *binary_tree_pop_max(BinaryTree *bt){
 
 void *binary_tree_get(BinaryTree *bt, void *key){
     
+}
+
+void binary_tree_print(Node* root){
+
+    Node* current = root;
+
+    printf("(");
+    printf("%s %s\n", (char*)current->key, (char*)current->value);
+    
+    if(current->left != NULL) binary_tree_print(current->left);
+    if(current->right != NULL) binary_tree_print(current->right);
+
+    printf(")");
 }
 
 void binary_tree_destroy(BinaryTree *bt){
