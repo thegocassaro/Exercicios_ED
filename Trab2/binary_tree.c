@@ -54,7 +54,7 @@ BinaryTree *binary_tree_construct(CmpFn cmp_fn, KeyDestroyFn key_destroy_fn, Val
 
 void binary_tree_add(BinaryTree *bt, void *key, void *value){
     
-    Node* new_node = node_construct(key, value, NULL, NULL);
+    Node* new_node = bt_node_construct(key, value, NULL, NULL);
 
     if(bt->root == NULL){
         bt->root = new_node;
@@ -99,6 +99,18 @@ int binary_tree_empty(BinaryTree *bt){
     
 }
 
+static void node_swap(Node* n1, Node* n2){
+
+    void* aux_key = n1->key;
+    void* aux_value = n1->value;
+
+    n1->key = n2->key;
+    n1->value = n2->value;
+
+    n2->key = aux_key;
+    n2->value = aux_value;
+}
+
 void binary_tree_remove(BinaryTree *bt, void *key){
     
     Node* current = bt->root;
@@ -109,6 +121,7 @@ void binary_tree_remove(BinaryTree *bt, void *key){
         return;
     }  
 
+    //acha o filho pela chave e guarda a posicao em relacao ao pai
     while(bt->cmp_fn(key, current->key)){
 
         parent = current;
@@ -128,11 +141,12 @@ void binary_tree_remove(BinaryTree *bt, void *key){
         }
     }
 
+    //caso nao tenha filhos
     if(current->left == NULL && current->right == NULL){
 
         bt_node_destroy(current);
 
-        if(current == bt->root){
+        if(parent == NULL){
             bt->root = NULL;
             return;
         }
@@ -146,9 +160,15 @@ void binary_tree_remove(BinaryTree *bt, void *key){
         }
     }
 
+    //caso tenha filhos na esquerda
     else if(current->right == NULL){
         
-        if(bigger_or_smaller){
+        if(parent == NULL){
+            bt->root = current->left;
+            return;
+        }
+
+        else if(bigger_or_smaller){
             parent->right = current->left;
         }
 
@@ -159,9 +179,15 @@ void binary_tree_remove(BinaryTree *bt, void *key){
         bt_node_destroy(current);
     }
 
+    //caso tenha filhos na direita
     else if(current->left == NULL){
         
-        if(bigger_or_smaller){
+        if(parent == NULL){
+            bt->root = current->right;
+            return;
+        }
+
+        else if(bigger_or_smaller){
             parent->right = current->right;
         }
 
@@ -172,27 +198,31 @@ void binary_tree_remove(BinaryTree *bt, void *key){
         bt_node_destroy(current);
     }
 
+    //caso tenha filhos na direita e esquerda
     else{
-        
+
         Node* successor = current->right;
         Node* successor_parent = current;
+        Node* aux = NULL;
 
         while(successor->left != NULL){
             successor_parent = successor;
             successor = successor->left;
         }
 
-        current->key = successor->key;
-        current->value = successor->value;
-
-        if(successor == successor_parent->left){
-            successor_parent->left = successor->right;
+        //caso em que o sucessor eh o imediatamente a direita do current
+        if(successor == current->right){
+            current->right = successor->right;
         }
 
         else{
-            successor_parent->right = successor->right;
+            aux = successor->right;
+            successor_parent->left = aux;
         }
 
+        //troco apenas os conteudos do sucessor que agora está solto da árvore, com o current que quero remover
+        //pra nao ter q me preocupar com redirecionar os filhos dos pais de todo mundo e etc.
+        node_swap(current, successor);
         bt_node_destroy(successor);
     }
 }
@@ -242,4 +272,9 @@ void *binary_tree_get(BinaryTree *bt, void *key){
 
 void binary_tree_destroy(BinaryTree *bt){
     
+    Node* current = bt->root;
+
+
+    free(bt);
+    bt = NULL;
 }

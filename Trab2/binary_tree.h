@@ -2,7 +2,9 @@
 #ifndef _BINARY_TREE_H_
 #define _BINARY_TREE_H_
 
-#include "vector.h"
+// #include "vector.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef int (*CmpFn)(void *, void *);
 typedef void (*KeyDestroyFn)(void *);
@@ -53,12 +55,12 @@ void binary_tree_destroy(BinaryTree *bt);
 // a funcao abaixo pode ser util para debug, mas nao eh obrigatoria.
 void binary_tree_print(BinaryTree *bt);
 
-Vector *binary_tree_inorder_traversal(BinaryTree *bt);
+// Vector *binary_tree_inorder_traversal(BinaryTree *bt);
 // Vector *binary_tree_preorder_traversal(BinaryTree *bt);
 // Vector *binary_tree_postorder_traversal(BinaryTree *bt);
 // Vector *binary_tree_levelorder_traversal(BinaryTree *bt);
 
-Vector *binary_tree_inorder_traversal_recursive(BinaryTree *bt);
+// Vector *binary_tree_inorder_traversal_recursive(BinaryTree *bt);
 // Vector *binary_tree_preorder_traversal_recursive(BinaryTree *bt);
 // Vector *binary_tree_postorder_traversal_recursive(BinaryTree *bt);
 

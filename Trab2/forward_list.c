@@ -68,7 +68,7 @@ data_type forward_list_pop_front(ForwardList *l){
     }
 
     Node* aux = l->head;
-    int aux_value = node_value(aux);
+    data_type aux_value = node_value(aux);
 
     l->head = node_next(aux);
     node_destroy(aux);

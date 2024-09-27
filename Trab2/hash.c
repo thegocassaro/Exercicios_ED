@@ -22,6 +22,24 @@ struct HashTableIterator{
     int cur_element;
 };
 
+HashTableItem* hash_table_item_construct(HashTable* h, void* key, void* val){
+
+    HashTableItem* item = (HashTableItem*)calloc(1, sizeof(HashTableItem));
+
+    item->key = key;
+    item->val = val;
+
+    return item;
+}
+
+void hash_table_item_destroy(HashTableItem* item){
+
+    free(item->key);
+    free(item->val);
+    free(item);
+    item = NULL;
+}
+
 HashTable *hash_table_construct(int table_size, HashFunction hash_fn, CmpFunction cmp_fn){
 
     HashTable* ht = (HashTable*)calloc(1, sizeof(HashTable));
@@ -60,24 +78,6 @@ void hash_table_destroy(HashTable *h){
 
     free(h);
     h = NULL;
-}
-
-HashTableItem* hash_table_item_construct(HashTable* h, void* key, void* val){
-
-    HashTableItem* item = (HashTableItem*)calloc(1, sizeof(HashTableItem));
-
-    item->key = key;
-    item->val = val;
-
-    return item;
-}
-
-void hash_table_item_destroy(HashTableItem* item){
-
-    free(item->key);
-    free(item->val);
-    free(item);
-    item = NULL;
 }
 
 void *hash_table_get(HashTable *h, void *key){
