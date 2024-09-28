@@ -49,17 +49,33 @@ int main()
 
     binary_tree_print(bt->root);
 
-
     binary_tree_remove(bt, "e");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "c");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "a");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "b");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "f");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "d");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "i");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "g");
+    binary_tree_print(bt->root);
+    printf("\n");
     binary_tree_remove(bt, "h");
-
+    binary_tree_print(bt->root);
+    printf("\n");
 
     binary_tree_destroy(bt);
 
