@@ -21,6 +21,7 @@
         "fila.h": "c",
         "list": "c",
         "string.h": "c",
-        "hash.h": "c"
+        "hash.h": "c",
+        "binary_tree.h": "c"
     }
 }

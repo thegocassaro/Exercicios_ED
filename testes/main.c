@@ -18,7 +18,7 @@ void calcula_erro_porcentagem(){
 
 int main(){
 
-    printf("%d", 1%10);
+    printf("%d\n", 1%10);
 
     return 0;
 }
